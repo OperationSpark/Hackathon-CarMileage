@@ -21,64 +21,46 @@
     </script>
     <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
-    <script type="text/javascript">
-      // FirebaseUI config.
-      var uiConfig = {
-        signInSuccessUrl: 'localhost:3000',
-        signInOptions: [
-          // Leave the lines as is for the providers you want to offer your users.
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-          // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-          // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-          // firebase.auth.GithubAuthProvider.PROVIDER_ID,
-          // firebase.auth.EmailAuthProvider.PROVIDER_ID
-        ],
-        // Terms of service url.
-        tosUrl: '<your-tos-url>'
-      };
-
-      // Initialize the FirebaseUI Widget using Firebase.
-      var ui = new firebaseui.auth.AuthUI(firebase.auth());
-      // The start method will wait until the DOM is loaded.
-      ui.start('#firebaseui-auth-container', uiConfig);
-    </script>
     <script data-require="google-maps@1.0.0" data-semver="1.0.0" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script data-require="angular.js@1.2.x" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js" data-semver="1.2.17"></script>
     <script data-require="lodash-underscore@*" data-semver="2.4.1" src="https://rawgit.com/lodash/lodash/2.4.1/dist/lodash.underscore.min.js"></script>
     <script data-require="angular-google-maps@*" data-semver="1.1.4" src="https://rawgit.com/nlaplante/angular-google-maps/1.1.4/dist/angular-google-maps.min.js"></script>
     <script src="app.js"></script>
   </head>
+  <body>
+    <div ng-controller="AuthCtrl" ng-hide="isLoggedIn">
+      <div id="firebaseui-auth-container"></div>
+      <div id="loader">Loading...</div>
+    </div>
+    <div ng-controller="MainCtrl">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <google-map control="map.control" center="map.center" zoom="map.zoom">
+            <marker coords="marker.center"></marker>
+          </google-map>
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label for="origin" class="col-sm-2 control-label">Origin</label>
+              <div class="col-sm-8">
+                <input type="text" id="origin" class="form-control" ng-model="directions.origin" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="destination" class="col-sm-2 control-label">Destination</label>
+              <div class="col-sm-8">
+                <input type="text" id="destination" class="form-control" ng-model="directions.destination" />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-8">
+                <button class="btn btn-primary" ng-click="getDirections()">Get Directions</button>
+              </div>
+            </div>
+          </form>
 
-  <body ng-controller="MainCtrl">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <google-map control="map.control" center="map.center" zoom="map.zoom">
-          <marker coords="marker.center"></marker>
-        </google-map>
-        <form class="form-horizontal" role="form">
-          <div class="form-group">
-            <label for="origin" class="col-sm-2 control-label">Origin</label>
-            <div class="col-sm-8">
-              <input type="text" id="origin" class="form-control" ng-model="directions.origin" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="destination" class="col-sm-2 control-label">Destination</label>
-            <div class="col-sm-8">
-              <input type="text" id="destination" class="form-control" ng-model="directions.destination" />
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-8">
-              <button class="btn btn-primary" ng-click="getDirections()">Get Directions</button>
-            </div>
-          </div>
-        </form>
-
-        <div id="directionsList" ng-show="directions.showList" class="panel panel-primary"></div>
+          <div id="directionsList" ng-show="directions.showList" class="panel panel-primary"></div>
+        </div>
       </div>
     </div>
-    <div id="firebaseui-auth-container"></div>
   </body>
-
 </html>

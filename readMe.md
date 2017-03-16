@@ -6,4 +6,6 @@ angular-google-maps directions example with directions list
 
 3) npm install
 
-4) go to localhost:3000
+4) npm start
+
+5) go to localhost:3000

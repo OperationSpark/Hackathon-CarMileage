@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "firebase": "^3.7.2",
+    "gcloud": "^0.37.2"
   }
 }

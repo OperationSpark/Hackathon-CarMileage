@@ -4,7 +4,7 @@ app.controller('MainCtrl', function($scope, $document) {
   var currentUser;
   //functions to write user data
   function writeUserData(userId, name, email, directionRequest) {
-    cosnole.log('Writing Data To Firebase')
+    console.log('Writing Data To Firebase')
     firebase.database().ref('users/' + userId).set({
       username: name,
       email: email,
@@ -66,7 +66,6 @@ app.controller('MainCtrl', function($scope, $document) {
     directionsService.route(request, function (response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
         console.log(response, 'direction service success response');
-        console.log(currentUser.uid, currentUser.displayName, currentUser.email, response.request),
         writeUserData(currentUser.uid, currentUser.displayName, currentUser.email, response.request);
         directionsDisplay.setDirections(response);
         directionsDisplay.setMap($scope.map.control.getGMap());

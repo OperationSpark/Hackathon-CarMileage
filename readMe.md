@@ -6,11 +6,16 @@ Angular Firebase Google Maps Starter Kit
 Given that the data is private, we need to create a firebase account manipulate data with firebase. Follow the instructions in creating a firebase project to hook up the app and update the index.html config:
 
 ## Create A Firebase Account
-1. go to https://firebase.google.com/
+1. Go to https://firebase.google.com/
 2. Get Started For Free (Log In)
 3. Create New Project
 4. Name Your project and click Create Project
 5. Click Add Firebase to your web App and save that code, you will use this in the next section!
+6. Click authentication in the sidebar then set up sign-in method
+7. Enable google by clinking on it, turning the slider to right, then click save. Your google Auth will now work.
+
+Side Note:
+The app comes with twitter, facebook, and github ready to use, however, if you want them to work you need to enable them on firebase and follow the directions on configuring them through the firebase UI. You can configure these at a later time or simply remove them from the code in your index.html.
 
 ## Start Developing
 

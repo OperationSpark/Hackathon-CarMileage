@@ -1,7 +1,7 @@
 Angular Firebase Google Maps Starter Kit
 ===
 
-##Wrapper
+## Wrapper
 
 Given that the data is private, we need to create a firebase account manipulate data with firebase. Follow the instructions in creating a firebase project to hook up the app and update the index.html config:
 

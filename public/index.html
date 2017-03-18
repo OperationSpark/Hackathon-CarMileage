@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html ng-app="plunker">
+<html ng-app="mainModule">
 
   <head>
     <meta charset="utf-8" />
-    <title>AngularJS With Google Maps</title>
+    <title>Car.Go, Your Total Car Maintinence Tracking App</title>
     <script>document.write('<base href="' + document.location + '" />');</script>
     <link rel="stylesheet" href="style.css" />
     <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
@@ -64,7 +64,7 @@
     </script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
-    <script data-require="lodash-underscore@*" data-semver="2.4.1" src="https://rawgit.com/lodash/lodash/2.4.1/dist/lodash.underscore.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
     <script src="app.js"></script>
   </head>
   <body>
@@ -86,10 +86,14 @@
                   <dt>{{item.name}}</dt>
                   <dd>
                     <svg viewBox="0 0 100 1" style="border: 1px solid black">
-                      <rect x="0" y="0" height="1" ng-attr-width="{{item.percent}}" ng-attr-fill="{{item.color}}"></rect>
+                      <rect x="0" y="0" height="1" ng-attr-width="{{$ctrl.calcPercent(car, item)}}" ng-attr-fill="{{item.color}}"></rect>
                     </svg>
                   </dd>
+                  <dd>
+                    {{$ctrl.calcPercent(car, item)}}
+                  </dd>
                 </dl>
+                <a ng-click="$ctrl.checkInCar(car)">Check In</a>
               </section>
             </li>
           </ul>

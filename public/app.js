@@ -1,24 +1,34 @@
-var app = angular.module('plunker', []);
+/* global moment angular */
+
+const mainModule = angular.module('mainModule', []);
+
 
 const lpad = (str, padWith, minLength) =>
   str.length >= minLength ? str : lpad(padWith+str, padWith, minLength);
 const rand2Hex = () => lpad(Math.floor(Math.random()*256).toString(16), '0', 2);
-this.randomColor = () => `#${rand2Hex()}${rand2Hex()}${rand2Hex()}`;
-    
+const randomColor = () => `#${rand2Hex()}${rand2Hex()}${rand2Hex()}`;
 
-app.controller('MainCtrl', [function() {
+mainModule.controller('MainCtrl', [function() {
   this.cars = [
     {
       name: "My Honda",
-      odometer: 10000,
+      odometer: 41900,
       tracking: [
-        { name: "Oil Change", percent: 60, color: randomColor() },
-        { name: "Tire Rotation", percent: 32, color: randomColor() },
-        { name: "Tire Change", percent: 75, color: randomColor() },
-        { name: "Windshield Fluid", percent: 7, color: randomColor() },
+        { name: "Oil Change", color: randomColor(), next: { mileage: 42000, date: '2017-05-01'}, previous: { mileage: 38000, date: '2017-01-01'} },
       ],
     }
   ];
+
+
+  const d = dateString => moment(dateString).unix()
+    
+  this.calcPercent = ({odometer}, {next, previous}) => {
+    const pcntMileage = next.mileage === null ? 0  : 
+                        (odometer - previous.mileage) / (next.mileage - previous.mileage)
+    const pcntDate = next.date === null ? 0 :
+                        (d(moment()) - d(previous.date)) / (d(next.date) - d(previous.date))
+    return 100 * (pcntMileage > pcntDate ? pcntMileage : pcntDate)
+  }
   
   // var currentUser;
   //functions to write user data

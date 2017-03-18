@@ -63,13 +63,13 @@
       ui.start('#firebaseui-auth-container', uiConfig);
     </script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
-    <script data-require="angular.js@1.2.x" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js" data-semver="1.2.17"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
     <script data-require="lodash-underscore@*" data-semver="2.4.1" src="https://rawgit.com/lodash/lodash/2.4.1/dist/lodash.underscore.min.js"></script>
     <script src="app.js"></script>
   </head>
   <body>
 
-    <main ng-controller="MainCtrl">
+    <main ng-controller="MainCtrl as $ctrl">
       <div ng-hide="isLoggedIn">
         <div id="firebaseui-auth-container"></div>
         <div id="loader">Loading...</div>
@@ -77,25 +77,19 @@
       <div class="panel panel-default">
         <article id="dashboard">
           <ul class="car-cards">
-            <li>
+            <li ng-repeat="car in $ctrl.cars">
               <section>
                 <header>
-                  <h1>Honda Civic</h1>
-                  <dl>
-                    <dt>Oil Change</dt>
-                    <dd>
-                      <svg viewBox="0 0 100 1" style="border: 1px solid black">
-                        <rect x="0" y="0" height="1" width="60" fill="#AA1111"></rect>
-                      </svg>
-                    </dd>
-                    <dt>Tire Rotation</dt>
-                    <dd>
-                      <svg viewBox="0 0 100 1" style="border: 1px solid black">
-                        <rect x="0" y="0" height="1" width="80" fill="#AA1111"></rect>
-                      </svg>
-                    </dd>
-                  </dl>
+                  <h1>{{car.name}}</h1>
                 </header>
+                <dl ng-repeat="item in car.tracking">
+                  <dt>{{item.name}}</dt>
+                  <dd>
+                    <svg viewBox="0 0 100 1" style="border: 1px solid black">
+                      <rect x="0" y="0" height="1" ng-attr-width="{{item.percent}}" ng-attr-fill="{{item.color}}"></rect>
+                    </svg>
+                  </dd>
+                </dl>
               </section>
             </li>
           </ul>

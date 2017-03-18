@@ -76,6 +76,15 @@
       </div>
       <div class="panel panel-default">
         <article id="dashboard">
+          <aside ng-if="$ctrl.carCheckingIn">
+            <form ng-submit="$ctrl.finishCheckIn()">
+              <label>
+                <span class="label">Current Milage:</span>
+                <input ng-model="$ctrl.carCheckingIn.newOdometer" required type="number">
+              </label>
+              <button>Save</button>
+            </form>
+          </aside>
           <ul class="car-cards">
             <li ng-repeat="car in $ctrl.cars">
               <section>
@@ -90,10 +99,10 @@
                     </svg>
                   </dd>
                   <dd>
-                    {{$ctrl.calcPercent(car, item)}}
+                    {{$ctrl.calcPercent(car, item) | number: 1}}
                   </dd>
                 </dl>
-                <a ng-click="$ctrl.checkInCar(car)">Check In</a>
+                <a ng-click="$ctrl.beginCheckIn(car)">Check In</a>
               </section>
             </li>
           </ul>

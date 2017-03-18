@@ -12,13 +12,13 @@ mainModule.controller('MainCtrl', [function() {
   this.cars = [
     {
       name: "My Honda",
-      odometer: 41900,
+      odometer: 41650,
       tracking: [
         { name: "Oil Change", color: randomColor(), next: { mileage: 42000, date: '2017-05-01'}, previous: { mileage: 38000, date: '2017-01-01'} },
+        { name: "Tire Rotation", color: randomColor(), next: { mileage: 62000, date: '2018-01-10'}, previous: { mileage: 40000, date: '2017-03-01'} },
       ],
     }
   ];
-
 
   const d = dateString => moment(dateString).unix()
     
@@ -30,6 +30,9 @@ mainModule.controller('MainCtrl', [function() {
     return 100 * (pcntMileage > pcntDate ? pcntMileage : pcntDate)
   }
   
+  this.carCheckingIn = null;
+  this.beginCheckIn = (car) => this.carCheckingIn = { newOdometer: car.odometer + 3000, car};
+  this.finishCheckIn = () => this.carCheckingIn.car.odometer = this.carCheckingIn.newOdometer;
   // var currentUser;
   //functions to write user data
   // function writeUserData(userId, name, email, directionRequest) {

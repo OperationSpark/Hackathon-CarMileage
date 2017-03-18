@@ -4,20 +4,32 @@
   <head>
     <meta charset="utf-8" />
     <title>Car.Go, Your Total Car Maintinence Tracking App</title>
+    <link rel="shortcut icon" href="logo.png" />
     <script>document.write('<base href="' + document.location + '" />');</script>
     <link rel="stylesheet" href="style.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script
+  src="https://code.jquery.com/jquery-3.2.0.min.js"
+  integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+  crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyBoUPlAe5Jbz_lc20sluF8IW8GQyvj2vjM",
-        authDomain: "project--3096610514914531623.firebaseapp.com",
-        databaseURL: "https://project--3096610514914531623.firebaseio.com",
-        storageBucket: "project--3096610514914531623.appspot.com",
-        messagingSenderId: "640777191644"
-      };
-      var app = firebase.initializeApp(config);
-    </script>
+      <script>
+        // Initialize Firebase
+        var config = {
+          apiKey: "AIzaSyBNrEN1Fky62nXXXeDYqb9p_c5O6oJkuyY",
+          authDomain: "cargoapp-44c45.firebaseapp.com",
+          databaseURL: "https://cargoapp-44c45.firebaseio.com",
+          storageBucket: "cargoapp-44c45.appspot.com",
+          messagingSenderId: "642542294812"
+        };
+        firebase.initializeApp(config);
+      </script>
     <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
     <script type="text/javascript">
       // FirebaseUI config.
@@ -68,14 +80,71 @@
     <script src="app.js"></script>
   </head>
   <body>
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Car.go
+      </a>
+    </div>
 
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    
+    <img src="logo.png" />
+    
     <main ng-controller="MainCtrl as $ctrl">
       <div ng-hide="isLoggedIn">
         <div id="firebaseui-auth-container"></div>
         <div id="loader">Loading...</div>
-      </div>
+      </div
       <div class="panel panel-default">
         <article id="dashboard">
+          
           <aside ng-if="$ctrl.carCheckingIn">
             <form ng-submit="$ctrl.finishCheckIn()">
               <label>
@@ -85,13 +154,53 @@
               <button>Save</button>
             </form>
           </aside>
+          
+          <aside>
+            <p>Car information.</p>
+            <form >1:Enter car name 
+            <br>
+            <input type="text" ng-model="carName"name="entercarinformation"><br>
+            2: Enter car make & model 
+            <form>
+            <br>
+            <input ng-model="carMake" type="entercarmake&model">
+            </form>
+            <form>3:current Mileage
+            <br>
+            <input ng-model="odometer"><br><br>
+            </form>
+            <button ng-click = "$ctrl.finishSavingCar(carName, carMake, odometer)">Save Car</button>
+          </aside>
+          
+          <aside ng-if="$ctrl.trackerUpdating">
+            <form ng-submit="$ctrl.finishTrackerUpdate()">
+              <label>
+                <span class="label">Current Milage:</span>
+                <input ng-model="$ctrl.trackerUpdating.currentOdemeter" required type="number">
+              </label> <br />
+              <label>
+                <span class="label">Day Performed:</span>
+                <input ng-model="$ctrl.trackerUpdating.operationDay">
+              </label><br />
+              <label>
+                <span class="label">Expected Lifespan (in miles):</span>
+                <input ng-model="$ctrl.trackerUpdating.milesLifespan" required type="number">
+              </label><br />
+              <label>
+                <span class="label">Expected Lifespan (in days):</span>
+                <input ng-model="$ctrl.trackerUpdating.daysLifespan" required type="number">
+              </label><br />
+              <button>Save</button><br />
+            </form>
+          </aside>
+          
           <ul class="car-cards">
             <li ng-repeat="car in $ctrl.cars">
               <section>
                 <header>
                   <h1>{{car.name}}</h1>
                 </header>
-                <dl ng-repeat="item in car.tracking">
+                <dl ng-repeat="item in car.tracking" ng-click="$ctrl.beginTrackerUpdate(item, car)">
                   <dt>{{item.name}}</dt>
                   <dd>
                     <svg viewBox="0 0 100 1" style="border: 1px solid black">
@@ -108,6 +217,9 @@
           </ul>
         </article>
       </div>
+      
+      <p>CarName</p></p><input ng-model="carName"></input>
+      <button ng-click="$ctrl.finishSavingCar(carName,'hi','hi')">Test Save</button>
     </main>
   </body>
 </html>

@@ -8,3 +8,23 @@
 .panel-primary {
   padding: 15px;
 }
+body {
+  font-family: Verdana, Geneva, sans-serif;
+}
+/*nav{
+  background: blue;
+  border-radius: 10px;
+}*/
+main {
+  background:white;
+  border-radius: 10px;
+}
+[class=car-cards] {
+  background: DodgerBlue;
+  border-radius: 10px;
+}
+aside {
+  background: DodgerBlue;
+  border-radius: 10px;
+  padding: 10px;
+}

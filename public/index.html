@@ -84,7 +84,10 @@
                 <span class="label">Current Milage:</span>
                 <input ng-model="$ctrl.carCheckingIn.newOdometer" required type="number" />
               </label>
-              <button>Save</button>
+							<footer class="actions">
+							  <button class="cancel" ng-click="$ctrl.carCheckingIn = null" type="button">Cancel</button>
+                <button>Save</button>
+              </footer>
             </form>
           </aside>
 
@@ -106,7 +109,10 @@
                 <span class="label">Expected Lifespan (in days):</span>
                 <input ng-model="$ctrl.trackerUpdating.daysLifespan" required type="number">
               </label><br />
-              <button>Save</button><br />
+							<footer class="actions">
+							  <button class="cancel" ng-click="$ctrl.trackerUpdating = null" type="button">Cancel</button>
+                <button>Save</button>
+              </footer>
             </form>
           </aside>
           
@@ -138,10 +144,10 @@
   								<span class="label">Date</span>
   							</label>
 							</div>
-							<div class="actions">
-							  <button class="negative" type="button" ng-click="$ctrl.addingTrackingItem = null">Cancel</button>
+							<footer class="actions">
+							  <button class="cancel" type="button" ng-click="$ctrl.addingTrackingItem = null">Cancel</button>
 							  <button ng-disabled="addingTrackingItemForm.$invalid">Add</button>
-							</div>
+							</footer>
             </form>
           </aside>
 
@@ -171,7 +177,11 @@
 													Current Mileage
 											</span>
 									</label>
-									<button ng-disabled="creatingCarForm.$invalid">Save</button>
+									
+    							<footer class="actions">
+    							  <button class="cancel" ng-click="$ctrl.creatingCar = null" type="button">Cancel</button>
+  									<button ng-disabled="creatingCarForm.$invalid">Save</button>
+									</footer>
 							</form>
 					</aside>
 

@@ -101,3 +101,48 @@ aside {
 .progress-bar {
   background: #be2625;
 }
+
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form input:invalid + .label {
+    color: #be2625;
+    font-style: normal;
+}
+
+form label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+form label .label {
+    order: -1;
+}
+
+.label i:after {
+    content: ":";
+    margin-right: .5em;
+}
+
+label i {
+    font-style: normal;
+}
+.actions {
+    display: flex;
+    justify-content: center;
+}
+
+.cancel {
+    order: 1;
+    background-color: #a6a6a6;
+    margin-left: 1em;
+}
+
+.car-cards .actions {
+    justify-content: space-between;
+    padding: 0 10px 5px 10px;
+}

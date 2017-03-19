@@ -8,23 +8,71 @@
 .panel-primary {
   padding: 15px;
 }
+
+.panel {
+    background-color: white;
+    border: none !important;
+}
+
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  background: white !important;
+  font-family: Impact, Charcoal, sans-serif !important;
 }
-/*nav{
-  background: blue;
-  border-radius: 10px;
-}*/
-main {
-  background:white;
-  border-radius: 10px;
-}
-[class=car-cards] {
-  background: DodgerBlue;
-  border-radius: 10px;
-}
-aside {
-  background: DodgerBlue;
+
+nav {
+  background: #d3d3d3;
   border-radius: 10px;
   padding: 10px;
+  color: black;
+  //background-image: url("logo.png");
+  background-repeat: no-repeat;
+  background-position: 650px -30px;
+  background-size: 120px 150px;
+}
+
+small {
+  color: black !important;
+}
+
+main {
+  background: white !important;
+}
+button {
+  background: #c43b3a;
+  color:black;
+}
+a {
+  color:black;
+}
+a.btn.btn-default{
+  background: #c43b3a;
+  color: 000000;
+}
+span.label {
+  color:black;
+  font-size:1.5em;
+}
+article {
+  background: white;
+}
+
+[class=car-cards] {
+  background: #d3d3d3;
+  border-radius: 10px;
+}
+
+aside {
+  background: #d3d3d3;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-bar {
+  background: #be2625;
 }

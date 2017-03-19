@@ -1,0 +1,30 @@
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add New Car</h4>
+      </div>
+      <div class="modal-body">
+          <p>Car information.</p>
+            <form >1:Enter car name 
+            <br>
+            <input type="text" ng-model="carName"name="entercarinformation"><br>
+            2: Enter car make & model 
+            <form>
+            <br>
+            <input ng-model="carMake" type="entercarmake&model">
+            </form>
+            <form>3:current Mileage
+            <br>
+            <input ng-model="odometer"><br><br>
+            </form>
+            <button ng-click = "$ctrl.finishSavingCar(carName, carMake, odometer)">Save Car</button>
+            <div class="modal fade">
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="close(false)" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" ng-click="close(true)" class="btn btn-primary" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

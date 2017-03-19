@@ -1,6 +1,6 @@
 /* global moment angular */
 
-const mainModule = angular.module('mainModule', []);
+const mainModule = angular.module('mainModule', 'angularModalService', ['angularModalService']);
 
 
 const lpad = (str, padWith, minLength) =>
@@ -8,7 +8,7 @@ const lpad = (str, padWith, minLength) =>
 const rand2Hex = () => lpad(Math.floor(Math.random()*256).toString(16), '0', 2);
 const randomColor = () => `#${rand2Hex()}${rand2Hex()}${rand2Hex()}`;
 
-mainModule.controller('MainCtrl', [function($scope, $document) {
+mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $document) {
   
   this.cars = [
     {
@@ -20,7 +20,7 @@ mainModule.controller('MainCtrl', [function($scope, $document) {
       ],
     },
     {
-      name: "Hot Miata",
+      name: "My Chevy",
       odometer: 4050,
       tracking: [
         { name: "Oil Change", color: randomColor(), next: { mileage: 1000, date: '2017-05-01'}, previous: { mileage: 800, date: '2017-01-01'} },
@@ -35,7 +35,8 @@ mainModule.controller('MainCtrl', [function($scope, $document) {
                         (odometer - previous.mileage) / (next.mileage - previous.mileage)
     const pcntDate = next.date === null ? 0 :
                         (d(moment()) - d(previous.date)) / (d(next.date) - d(previous.date))
-    return 100 * (pcntMileage > pcntDate ? pcntMileage : pcntDate)
+    console.log(Math.floor(100 * (pcntMileage > pcntDate ? pcntMileage : pcntDate)))
+    return Math.floor(100 * (pcntMileage > pcntDate ? pcntMileage : pcntDate))
   }
   
   this.carCheckingIn = null;
@@ -43,7 +44,7 @@ mainModule.controller('MainCtrl', [function($scope, $document) {
   this.finishCheckIn = () =>{
      this.carCheckingIn.car.odometer = this.carCheckingIn.newOdometer;
      this.carCheckingIn = null;
-  }
+  };
   
   this.trackerUpdating = null;
   this.beginTrackerUpdate = (item, car) => {
@@ -109,19 +110,40 @@ mainModule.controller('MainCtrl', [function($scope, $document) {
   }
   
 
-  // // Check If User Is Signed In
-  // firebase.auth().onAuthStateChanged(function(user) {
-  //   if (user) {
-  //     console.log(user, 'user is signed in');
-  //     currentUser = user;
-  //     $scope.isLoggedIn = true;
-  //   } else {
-  //     console.log('user is signed out');
-  //     currentUser = null;
-  //     $scope.isLoggedIn = false;
-  //   }
-  // }, function(error) {
-  //   console.log(error);
-  // });
+  // Check If User Is Signed In
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      console.log(user, 'user is signed in');
+      currentUser = user;
+      $scope.isLoggedIn = true;
+    } else {
+      console.log('user is signed out');
+      currentUser = null;
+      $scope.isLoggedIn = false;
+    }
+  }, function(error) {
+    console.log(error);
+  });
 
+}]);
+
+mainModule.controller('NewCarController', ['$scope', 'ModalService', function($scope, ModalService) {
+
+  $scope.close = function(result) {
+ 	  close(result, 500); // close, but give 500ms for bootstrap to animate
+  };
+
+  $scope.showYesNo = function() {
+
+    ModalService.showModal({
+      templateUrl: "modals/newcar-template.html",
+      controller: "NewCarController"
+    }).then(function(modal) {
+      modal.element.modal();
+      modal.close.then(function(result) {
+        $scope.yesNoResult = result ? "You said Yes" : "You said No";
+      });
+    });
+
+  };
 }]);

@@ -102,6 +102,7 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
       odometer: this.creatingCar.odometer,
       tracking: []
     })
+    this.creatingCar = null;
   })
   
   this.addingTrackingItem = null
@@ -119,7 +120,6 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
     $scope.$apply(() => {
       this.isLoggedIn = !!user
       const {uid} = firebase.auth().currentUser;
-      console.log('auty', uid)
       carDb =  firebase.database().ref(`users/${uid}/Cars`)
     });
     carDb.on('value', (db) => $scope.$apply(() => {

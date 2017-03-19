@@ -67,7 +67,7 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
   }
   
   this.carCheckingIn = null;
-  this.beginCheckIn = (car) => this.carCheckingIn = { newOdometer: car.odometer + 100, car};
+  this.beginCheckIn = (car) => this.carCheckingIn = { newOdometer: car.odometer, car};
   this.finishCheckIn = thenSave(() =>{
      this.carCheckingIn.car.odometer = this.carCheckingIn.newOdometer;
      this.carCheckingIn = null;

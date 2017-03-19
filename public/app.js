@@ -102,6 +102,11 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
     this.creatingCar = null;
   })
   
+  this.deleteCar = thenSave((car) => {
+    if(confirm(`Are you sure? All data on your ${car.name} will be lost`))
+      this.cars = this.cars.filter(c => c != car);
+  })
+  
   this.addingTrackingItem = null
   this.beginAddingTrackingItem = (car) => this.addingTrackingItem = { previous: {mileage: null, date: null}, next: {mileage: null, date: null}, car}
   this.finishAddingTrackingItem = thenSave(() => {

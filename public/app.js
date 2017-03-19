@@ -61,7 +61,8 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
                         (odometer - previous.mileage) / (next.mileage - previous.mileage)
     const pcntDate = next.date == null ? 0 :
                         (d(moment()) - d(previous.date)) / (d(next.date) - d(previous.date))
-    return Math.floor(100 * (pcntMileage > pcntDate ? pcntMileage : pcntDate))
+    const pcntLarger = pcntMileage > pcntDate ? pcntMileage : pcntDate
+    return Math.round(100 * (pcntLarger > 1 ? 1 : pcntLarger))
   }
   
   this.carCheckingIn = null;

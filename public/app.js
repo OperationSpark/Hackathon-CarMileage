@@ -48,7 +48,6 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
                         (odometer - previous.mileage) / (next.mileage - previous.mileage)
     const pcntDate = next.date == null ? 0 :
                         (d(moment()) - d(previous.date)) / (d(next.date) - d(previous.date))
-    console.log(Math.floor(100 * (pcntMileage > pcntDate ? pcntMileage : pcntDate)))
     return Math.floor(100 * (pcntMileage > pcntDate ? pcntMileage : pcntDate))
   }
   
@@ -64,7 +63,6 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
     const d = dateString => moment(dateString);
     
     const today = moment().format('MM/DD/YY');
-    console.log(d(item.next.date).diff(d(item.previous.date), 'days'));
     this.trackerUpdating = {
       currentOdemeter: car.odometer,
       operationDay: today,
@@ -80,9 +78,7 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
     tu.item.previous.mileage = tu.currentOdemeter;
     tu.item.next.mileage = tu.currentOdemeter + tu.milesLifespan;
     tu.item.previous.date = moment(tu.operationDay, 'MM/DD/YY')
-    console.log(moment(tu.operationDay, 'MM/DD/YY'))
     this.trackerUpdating = null;
-    console.log(this);
   };
   
   // var currentUser;
@@ -104,7 +100,7 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
       odometer: this.creatingCar.odometer,
       tracking: []
     })
-    firebase.database().ref('Cars/').push(strip$Keys({
+    firebase.database().ref('Cars/').set(strip$Keys({
       cars: this.cars, 
     }));
   }
@@ -119,11 +115,9 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
   // Check If User Is Signed In
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-      console.log(user, 'user is signed in');
       currentUser = user;
       $scope.isLoggedIn = true;
     } else {
-      console.log('user is signed out');
       currentUser = null;
       $scope.isLoggedIn = false;
     }

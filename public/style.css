@@ -31,7 +31,11 @@ nav {
   background-size: 120px 150px;
   */
 }
-
+img{
+  width: 130px;
+  height: 130px;
+  float: right;
+}
 small {
   color: black !important;
   font-weight: 100;

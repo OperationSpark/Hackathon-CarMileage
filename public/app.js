@@ -1,7 +1,7 @@
 /* global moment angular firebase */
 
+const carDb = firebase.database().ref('Cars/')
 const mainModule = angular.module('mainModule', []);
-
 
 const lpad = (str, padWith, minLength) =>
   str.length >= minLength ? str : lpad(padWith+str, padWith, minLength);
@@ -23,23 +23,25 @@ const strip$Keys = (obj) => {
 
 mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $document) {
   
-  this.cars = [
-    {
-      name: "My Honda",
-      odometer: 41650,
-      tracking: [
-        { name: "Oil Change", color: randomColor(), next: { mileage: 42000, date: '2017-05-01'}, previous: { mileage: 38000, date: '2017-01-01'} },
-        { name: "Tire Rotation", color: randomColor(), next: { mileage: 62000, date: '2018-01-10'}, previous: { mileage: 40000, date: '2017-03-01'} },
-      ],
-    },
-    {
-      name: "My Chevy",
-      odometer: 4050,
-      tracking: [
-        { name: "Oil Change", color: randomColor(), next: { mileage: 5000, date: '2017-05-01'}, previous: { mileage: 2000, date: '2017-01-01'} },
-      ],
-    },
-  ];
+  // Sample Data, true data loaded from firebasej
+  // this.cars = [
+  //   {
+  //     name: "My Honda",
+  //     odometer: 41650,
+  //     tracking: [
+  //       { name: "Oil Change", color: randomColor(), next: { mileage: 42000, date: '2017-05-01'}, previous: { mileage: 38000, date: '2017-01-01'} },
+  //       { name: "Tire Rotation", color: randomColor(), next: { mileage: 62000, date: '2018-01-10'}, previous: { mileage: 40000, date: '2017-03-01'} },
+  //     ],
+  //   },
+  // ];
+  const thenSave = fn => (...args) =>{
+    fn(...args)
+    setTimeout(() => {
+      carDb.set(strip$Keys({
+        cars: this.cars, 
+      }));
+    })
+  }
 
   const d = dateString => moment(dateString).unix()
     
@@ -53,10 +55,10 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
   
   this.carCheckingIn = null;
   this.beginCheckIn = (car) => this.carCheckingIn = { newOdometer: car.odometer + 100, car};
-  this.finishCheckIn = () =>{
+  this.finishCheckIn = thenSave(() =>{
      this.carCheckingIn.car.odometer = this.carCheckingIn.newOdometer;
      this.carCheckingIn = null;
-  };
+  });
   
   this.trackerUpdating = null;
   this.beginTrackerUpdate = (item, car) => {
@@ -72,14 +74,14 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
       car: car,
     }
   }
-  this.finishTrackerUpdate = () => {
+  this.finishTrackerUpdate = thenSave(() => {
     let tu = this.trackerUpdating;
     tu.car.odometer = tu.currentOdemeter;
     tu.item.previous.mileage = tu.currentOdemeter;
     tu.item.next.mileage = tu.currentOdemeter + tu.milesLifespan;
     tu.item.previous.date = moment(tu.operationDay, 'MM/DD/YY')
     this.trackerUpdating = null;
-  };
+  });
   
   // var currentUser;
   //functions to write user data
@@ -94,23 +96,22 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
 
   this.creatingCar = null
   this.beginCreatingCar = () => this.creatingCar = {}
-  this.finishCreatingCar = () => {
+  this.finishCreatingCar = thenSave(() => {
     this.cars.push({
       name: this.creatingCar.name,
       odometer: this.creatingCar.odometer,
       tracking: []
     })
-    firebase.database().ref('Cars/').set(strip$Keys({
-      cars: this.cars, 
-    }));
-  }
+  })
   
   this.addingTrackingItem = null
   this.beginAddingTrackingItem = (car) => this.addingTrackingItem = { previous: {}, next: {}, car}
-  this.finishAddingTrackingItem = () => {
-    this.addingTrackingItem.car.tracking.push(pick(this.addingTrackingItem, 'name', 'previous', 'next'))
+  this.finishAddingTrackingItem = thenSave(() => {
+    const {car} = this.addingTrackingItem
+    car.tracking || (car.tracking = [])
+    car.tracking.push(pick(this.addingTrackingItem, 'name', 'previous', 'next'))
     this.addingTrackingItem = null
-  }
+  })
 
   // Check If User Is Signed In
   firebase.auth().onAuthStateChanged(function(user) {
@@ -124,5 +125,10 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
   }, function(error) {
     console.log(error);
   });
+  
+  carDb.on('value', (db) => $scope.$apply(() => {
+    this.cars = db.val() && db.val().cars || []
+  }));
+
 
 }]);

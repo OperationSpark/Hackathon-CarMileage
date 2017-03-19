@@ -78,6 +78,7 @@
   </head>
   <body>
      <nav>
+       <img src="logo.png">
        <h1>Car.go <small>Your total car maintenance tracking app :)</small></h1>
      </nav>
     <main ng-controller="MainCtrl as $ctrl">
@@ -130,22 +131,22 @@
 							<div>
 							  <h3>Last Serviced</h3>
   							<label>
-  								<input ng-model="$ctrl.previous.mileage" type="number">
+  								<input ng-model="$ctrl.addingTrackingItem.previous.mileage" type="number">
   								<span class="label">Mileage</span>
   							</label>
   							<label>
-  								<input ng-model="$ctrl.previous.date" type="date">
+  								<input ng-model="$ctrl.addingTrackingItem.previous.date" type="date">
   								<span class="label">Date</span>
   							</label>
 							</div>
 							<div>
 							  <h3>Next Scheduled Service</h3>
   							<label>
-  								<input ng-model="$ctrl.next.mileage" type="number">
+  								<input ng-model="$ctrl.addingTrackingItem.next.mileage" type="number">
   								<span class="label">Mileage</span>
   							</label>
   							<label>
-  								<input ng-model="$ctrl.next.date" type="date">
+  								<input ng-model="$ctrl.addingTrackingItem.next.date" type="date">
   								<span class="label">Date</span>
   							</label>
 							</div>

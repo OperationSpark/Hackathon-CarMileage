@@ -8,7 +8,7 @@ const config = {
   messagingSenderId: "642542294812"
 };
 firebase.initializeApp(config);
-const carDb = firebase.database().ref('Cars/')
+let carDb = null
 
 const mainModule = angular.module('mainModule', []);
 
@@ -43,6 +43,8 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
   //     ],
   //   },
   // ];
+  this.cars = []
+  
   const thenSave = fn => (...args) =>{
     fn(...args)
     setTimeout(() => {
@@ -113,18 +115,22 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
 
   this.isLoginUiLoading = true;
   
-  firebase.auth().onAuthStateChanged((user) => $scope.$apply(() =>
+  firebase.auth().onAuthStateChanged((user) => {
+    $scope.$apply(() => {
       this.isLoggedIn = !!user
-  ),(error) => {
+      const {uid} = firebase.auth().currentUser;
+      console.log('auty', uid)
+      carDb =  firebase.database().ref(`users/${uid}/Cars`)
+    });
+    carDb.on('value', (db) => $scope.$apply(() => {
+      this.cars = db.val() && db.val().cars || []
+    }));
+  },(error) => {
     $scope.$apply(() => {
       this.isLoggedIn = false;
       console.error(error);
     })
   });
-  
-  carDb.on('value', (db) => $scope.$apply(() => {
-    this.cars = db.val() && db.val().cars || []
-  }));
   
   const uiConfig = {
     callbacks: {

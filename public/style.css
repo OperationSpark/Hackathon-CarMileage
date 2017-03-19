@@ -25,10 +25,15 @@ nav {
   border-radius: 10px;
   padding: 10px;
   color: black;
-  background-image: url("logo.png");
+  /*background-image: url("logo.png");
   background-repeat: no-repeat;
   background-position: 400px -30px;
   background-size: 120px 150px;
+  */
+}
+img {
+  width: auto;
+  height: auto;
 }
 
 small {

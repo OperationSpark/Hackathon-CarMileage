@@ -9,6 +9,18 @@ const rand2Hex = () => lpad(Math.floor(Math.random()*256).toString(16), '0', 2);
 const randomColor = () => `#${rand2Hex()}${rand2Hex()}${rand2Hex()}`;
 const pick = (obj, ...props) => props.reduce((o, p) => Object.assign(o, {[p]: obj[p]}), {});
 
+const isObject = (obj) => obj && ( typeof obj === 'object')
+const strip$Keys = (obj) => {
+  if(!isObject(obj))
+		return obj
+  if(Array.isArray(obj))
+		return obj.map(strip$Keys)
+	return Object.keys(obj)
+		.filter(p => p[0] != '$')
+		.map(p => [p,  strip$Keys(obj[p])])
+		.reduce((o, [p, val]) => Object.assign(o, {[p]: val}), {})
+}
+
 mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $document) {
   
   this.cars = [
@@ -32,9 +44,9 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
   const d = dateString => moment(dateString).unix()
     
   this.calcPercent = ({odometer}, {next, previous}) => {
-    const pcntMileage = next.mileage === null ? 0  : 
+    const pcntMileage = next.mileage == null ? 0  : 
                         (odometer - previous.mileage) / (next.mileage - previous.mileage)
-    const pcntDate = next.date === null ? 0 :
+    const pcntDate = next.date == null ? 0 :
                         (d(moment()) - d(previous.date)) / (d(next.date) - d(previous.date))
     console.log(Math.floor(100 * (pcntMileage > pcntDate ? pcntMileage : pcntDate)))
     return Math.floor(100 * (pcntMileage > pcntDate ? pcntMileage : pcntDate))
@@ -92,9 +104,9 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
       odometer: this.creatingCar.odometer,
       tracking: []
     })
-    firebase.database().ref('Cars/').push({
+    firebase.database().ref('Cars/').push(strip$Keys({
       cars: this.cars, 
-    });
+    }));
   }
   
   this.addingTrackingItem = null

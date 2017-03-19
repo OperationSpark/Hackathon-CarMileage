@@ -79,79 +79,86 @@
         <article id="dashboard">
 
           <aside ng-if="$ctrl.carCheckingIn">
-            <form ng-submit="$ctrl.finishCheckIn()">
-              <label>
-                <span class="label">Current Milage:</span>
-                <input ng-model="$ctrl.carCheckingIn.newOdometer" required type="number" />
-              </label>
-							<footer class="actions">
-							  <button class="cancel" ng-click="$ctrl.carCheckingIn = null" type="button">Cancel</button>
-                <button>Save</button>
-              </footer>
-            </form>
+					  <div class="content">
+              <form ng-submit="$ctrl.finishCheckIn()">
+                <label>
+                  <span class="label">Current Milage:</span>
+                  <input ng-model="$ctrl.carCheckingIn.newOdometer" required type="number" />
+                </label>
+  							<footer class="actions">
+  							  <button class="cancel" ng-click="$ctrl.carCheckingIn = null" type="button">Cancel</button>
+                  <button>Save</button>
+                </footer>
+              </form>
+            </div>
           </aside>
 
           <aside ng-if="$ctrl.trackerUpdating">
-            <form ng-submit="$ctrl.finishTrackerUpdate()">
-              <label>
-                <span class="label">Current Milage:</span>
-                <input ng-model="$ctrl.trackerUpdating.currentOdemeter" required type="number">
-              </label> <br />
-              <label>
-                <span class="label">Day Performed:</span>
-                <input ng-model="$ctrl.trackerUpdating.operationDay">
-              </label><br />
-              <label>
-                <span class="label">Expected Lifespan (in miles):</span>
-                <input ng-model="$ctrl.trackerUpdating.milesLifespan" required type="number">
-              </label><br />
-              <label>
-                <span class="label">Expected Lifespan (in days):</span>
-                <input ng-model="$ctrl.trackerUpdating.daysLifespan" required type="number">
-              </label><br />
-							<footer class="actions">
-							  <button class="cancel" ng-click="$ctrl.trackerUpdating = null" type="button">Cancel</button>
-                <button>Save</button>
-              </footer>
-            </form>
+					  <div class="content">
+              <form ng-submit="$ctrl.finishTrackerUpdate()">
+                <label>
+                  <span class="label">Current Milage:</span>
+                  <input ng-model="$ctrl.trackerUpdating.currentOdemeter" required type="number">
+                </label> <br />
+                <label>
+                  <span class="label">Day Performed:</span>
+                  <input ng-model="$ctrl.trackerUpdating.operationDay">
+                </label><br />
+                <label>
+                  <span class="label">Expected Lifespan (in miles):</span>
+                  <input ng-model="$ctrl.trackerUpdating.milesLifespan" required type="number">
+                </label><br />
+                <label>
+                  <span class="label">Expected Lifespan (in days):</span>
+                  <input ng-model="$ctrl.trackerUpdating.daysLifespan" required type="number">
+                </label><br />
+  							<footer class="actions">
+  							  <button class="cancel" ng-click="$ctrl.trackerUpdating = null" type="button">Cancel</button>
+                  <button>Save</button>
+                </footer>
+              </form>
+            </div>
           </aside>
           
           <aside ng-if="$ctrl.addingTrackingItem">
-            <form ng-submit="$ctrl.finishAddingTrackingItem()" name="addingTrackingItemForm">
-							<label>
-								<input ng-model="$ctrl.addingTrackingItem.name" required placeholder="eg Oil Change, Windshield Fluid">
-								<span class="label">Name</span>
-							</label>
-							<div>
-							  <h3>Last Serviced</h3>
+					  <div class="content">
+              <form ng-submit="$ctrl.finishAddingTrackingItem()" name="addingTrackingItemForm">
   							<label>
-  								<input ng-model="$ctrl.addingTrackingItem.previous.mileage" type="number">
-  								<span class="label">Mileage</span>
+  								<input ng-model="$ctrl.addingTrackingItem.name" required placeholder="eg Oil Change, Windshield Fluid">
+  								<span class="label">Name</span>
   							</label>
-  							<label>
-  								<input ng-model="$ctrl.addingTrackingItem.previous.date" type="date">
-  								<span class="label">Date</span>
-  							</label>
-							</div>
-							<div>
-							  <h3>Next Scheduled Service</h3>
-  							<label>
-  								<input ng-model="$ctrl.addingTrackingItem.next.mileage" type="number">
-  								<span class="label">Mileage</span>
-  							</label>
-  							<label>
-  								<input ng-model="$ctrl.addingTrackingItem.next.date" type="date">
-  								<span class="label">Date</span>
-  							</label>
-							</div>
-							<footer class="actions">
-							  <button class="cancel" type="button" ng-click="$ctrl.addingTrackingItem = null">Cancel</button>
-							  <button ng-disabled="addingTrackingItemForm.$invalid">Add</button>
-							</footer>
-            </form>
+  							<div>
+  							  <h3>Last Serviced</h3>
+    							<label>
+    								<input ng-model="$ctrl.addingTrackingItem.previous.mileage" type="number">
+    								<span class="label">Mileage</span>
+    							</label>
+    							<label>
+    								<input ng-model="$ctrl.addingTrackingItem.previous.date" type="date">
+    								<span class="label">Date</span>
+    							</label>
+  							</div>
+  							<div>
+  							  <h3>Next Scheduled Service</h3>
+    							<label>
+    								<input ng-model="$ctrl.addingTrackingItem.next.mileage" type="number">
+    								<span class="label">Mileage</span>
+    							</label>
+    							<label>
+    								<input ng-model="$ctrl.addingTrackingItem.next.date" type="date">
+    								<span class="label">Date</span>
+    							</label>
+  							</div>
+  							<footer class="actions">
+  							  <button class="cancel" type="button" ng-click="$ctrl.addingTrackingItem = null">Cancel</button>
+  							  <button ng-disabled="addingTrackingItemForm.$invalid">Add</button>
+  							</footer>
+              </form>
+					  <div class="content">
           </aside>
 
 					<aside ng-if="$ctrl.creatingCar">
+					  <div class="content">
 							<header>
 									<h2>Add New Car</h2>
 							</header>
@@ -182,6 +189,7 @@
     							  <button class="cancel" ng-click="$ctrl.creatingCar = null" type="button">Cancel</button>
   									<button ng-disabled="creatingCarForm.$invalid">Save</button>
 									</footer>
+								</div>
 							</form>
 					</aside>
 

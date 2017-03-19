@@ -86,12 +86,6 @@ article {
   border-radius: 10px;
 }
 
-aside {
-  background: #d3d3d3;
-  border-radius: 10px;
-  padding: 10px;
-}
-
 .image-container {
   display: flex;
   align-items: center;
@@ -145,4 +139,34 @@ label i {
 .car-cards .actions {
     justify-content: space-between;
     padding: 0 10px 5px 10px;
+}
+
+aside:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.3);
+}
+
+aside .content {
+    z-index: 100;
+    position: absolute;
+    width: 79%;
+    background: #d3d3d3;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+aside {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

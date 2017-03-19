@@ -11,19 +11,12 @@
 		<script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
-
-      <script>
-        // Initialize Firebase
-        var config = {
-          apiKey: "AIzaSyBNrEN1Fky62nXXXeDYqb9p_c5O6oJkuyY",
-          authDomain: "cargoapp-44c45.firebaseapp.com",
-          databaseURL: "https://cargoapp-44c45.firebaseio.com",
-          storageBucket: "cargoapp-44c45.appspot.com",
-          messagingSenderId: "642542294812"
-        };
-        firebase.initializeApp(config);
-      </script>
     <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
+		<link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="app.js"></script>
     <script type="text/javascript">
       // FirebaseUI config.
       var uiConfig = {
@@ -70,11 +63,6 @@
       ui.start('#firebaseui-auth-container', uiConfig);
     </script>
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
-		<link rel="stylesheet" href="style.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-    <script src="app.js"></script>
   </head>
   <body>
      <nav>

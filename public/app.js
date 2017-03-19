@@ -1,6 +1,15 @@
 /* global moment angular firebase */
 
+const config = {
+  apiKey: "AIzaSyBNrEN1Fky62nXXXeDYqb9p_c5O6oJkuyY",
+  authDomain: "cargoapp-44c45.firebaseapp.com",
+  databaseURL: "https://cargoapp-44c45.firebaseio.com",
+  storageBucket: "cargoapp-44c45.appspot.com",
+  messagingSenderId: "642542294812"
+};
+firebase.initializeApp(config);
 const carDb = firebase.database().ref('Cars/')
+
 const mainModule = angular.module('mainModule', []);
 
 const lpad = (str, padWith, minLength) =>

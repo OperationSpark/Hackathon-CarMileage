@@ -121,6 +121,13 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
     });
     carDb.on('value', (db) => $scope.$apply(() => {
       this.cars = db.val() && db.val().cars || []
+      this.cars.forEach(c => {
+        c.tracking || (c.tracking = [])
+        c.tracking.forEach(t => {
+          t.previous || (t.previous = {});
+          t.next || (t.next = {});
+        })
+      })
     }));
   },(error) => {
     $scope.$apply(() => {

@@ -31,6 +31,7 @@
       </div>
 
       <div class="panel" ng-if="$ctrl.isLoggedIn">
+        <a class="logout" onclick="firebase.auth().signOut()">Log Out</a>
         <article id="dashboard">
 
           <aside ng-if="$ctrl.carCheckingIn">

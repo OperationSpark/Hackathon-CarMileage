@@ -74,24 +74,19 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
   
   this.trackerUpdating = null;
   this.beginTrackerUpdate = (item, car) => {
-    const d = dateString => moment(dateString);
-    
-    const today = moment().format('MM/DD/YY');
     this.trackerUpdating = {
-      currentOdemeter: car.odometer,
-      operationDay: today,
-      milesLifespan: item.next.mileage ? item.next.mileage - item.previous.mileage : 0,
-      daysLifespan: item.next.date ? d(item.next.date).diff(d(item.previous.date), 'days') : '',
+      odometer: car.odometer,
+      previous: { date: new Date(), mileage: car.odometer },
+      next: {},
       item: item,
       car: car,
     }
   }
   this.finishTrackerUpdate = thenSave(() => {
-    let tu = this.trackerUpdating;
-    tu.car.odometer = tu.currentOdemeter;
-    tu.item.previous.mileage = tu.currentOdemeter;
-    tu.item.next.mileage = tu.currentOdemeter + tu.milesLifespan;
-    tu.item.previous.date = moment(tu.operationDay, 'MM/DD/YY')
+    const tu = this.trackerUpdating;
+    tu.car.odometer = tu.odometer;
+    tu.item.previous = tu.previous;
+    tu.item.next = tu.next
     this.trackerUpdating = null;
   });
   

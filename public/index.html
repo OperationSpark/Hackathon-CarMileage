@@ -20,7 +20,7 @@
   <body ng-cloak>
      <nav>
        <img src="logo.png">
-       <h1>Car.go <small>Your total car maintenance tracking app ;)</small></h1>
+       <h1>Car.go <small>Your total car maintenance tracking app :)</small></h1>
      </nav>
     <main ng-controller="MainCtrl as $ctrl">
       <div ng-if="$ctrl.isLoginUiLoading">
@@ -52,21 +52,31 @@
 					  <div class="content">
               <form ng-submit="$ctrl.finishTrackerUpdate()">
                 <label>
-                  <span class="label">Current Milage:</span>
-                  <input ng-model="$ctrl.trackerUpdating.currentOdemeter" required type="number">
-                </label> <br />
-                <label>
-                  <span class="label">Day Performed:</span>
-                  <input ng-model="$ctrl.trackerUpdating.operationDay">
-                </label><br />
-                <label>
-                  <span class="label">Expected Lifespan (in miles):</span>
-                  <input ng-model="$ctrl.trackerUpdating.milesLifespan" required type="number">
-                </label><br />
-                <label>
-                  <span class="label">Expected Lifespan (in days):</span>
-                  <input ng-model="$ctrl.trackerUpdating.daysLifespan" required type="number">
-                </label><br />
+                  <input ng-model="$ctrl.trackerUpdating.odometer" required type="number">
+                  <span class="label">Current Mileage:</span>
+                </label> 
+  							<div>
+  							  <h3>Last Serviced</h3>
+    							<label>
+    								<input ng-model="$ctrl.trackerUpdating.previous.mileage" type="number">
+    								<span class="label">Mileage</span>
+    							</label>
+    							<label>
+    								<input ng-model="$ctrl.trackerUpdating.previous.date" type="date">
+    								<span class="label">Date</span>
+    							</label>
+  							</div>
+  							<div>
+  							  <h3>Next Scheduled Service</h3>
+    							<label>
+    								<input ng-model="$ctrl.trackerUpdating.next.mileage" type="number">
+    								<span class="label">Mileage</span>
+    							</label>
+    							<label>
+    								<input ng-model="$ctrl.trackerUpdating.next.date" type="date">
+    								<span class="label">Date</span>
+    							</label>
+  							</div>
   							<footer class="actions">
   							  <button class="cancel" ng-click="$ctrl.trackerUpdating = null" type="button">Cancel</button>
                   <button>Save</button>

@@ -16,66 +16,21 @@
 		<link rel="stylesheet" href="style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-    <script src="app.js"></script>
-    <script type="text/javascript">
-      // FirebaseUI config.
-      var uiConfig = {
-        callbacks: {
-          signInSuccess: function(currentUser, credential, redirectUrl) {
-            // Do something.
-            // Return type determines whether we continue the redirect automatically
-            // or whether we leave that to developer to handle.
-            console.log(currentUser, credential, redirectUrl)
-          },
-          uiShown: function() {
-            // The widget is rendered.
-            // Hide the loader.
-            document.getElementById('loader').style.display = 'none';
-          }
-        },
-        credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM,
-        // Query parameter name for mode.
-        queryParameterForWidgetMode: 'mode',
-        // Query parameter name for sign in success url.
-        queryParameterForSignInSuccessUrl: 'signInSuccessUrl',
-        // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-        signInFlow: 'popup',
-        signInSuccessUrl: 'angularmaps-jamie7893.c9users.io',
-        signInOptions: [
-          // Leave the lines as is for the providers you want to offer your users.
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-          //  dont need these
-          // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-          // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-          {
-            // dont need this, this is for local auth
-            // provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-            // Whether the display name should be displayed in the Sign Up page.
-            requireDisplayName: true
-          }
-        ],
-        // Terms of service url.
-        tosUrl: '<your-tos-url>'
-      };
-
-      var ui = new firebaseui.auth.AuthUI(firebase.auth());
-      // The start method will wait until the DOM is loaded.
-      ui.start('#firebaseui-auth-container', uiConfig);
-    </script>
-
   </head>
-  <body>
+  <body ng-cloak>
      <nav>
        <img src="logo.png">
        <h1>Car.go <small>Your total car maintenance tracking app :)</small></h1>
      </nav>
     <main ng-controller="MainCtrl as $ctrl">
-      <div ng-hide="isLoggedIn">
+      <div ng-if="$ctrl.isLoginUiLoading">
+        Loading...
+      </div>
+      <div ng-hide="$ctrl.isLoggedIn">
         <div id="firebaseui-auth-container"></div>
-        <div id="loader">Loading...</div>
       </div>
 
-      <div class="panel panel-default">
+      <div class="panel" ng-if="$ctrl.isLoggedIn">
         <article id="dashboard">
 
           <aside ng-if="$ctrl.carCheckingIn">
@@ -229,7 +184,7 @@
 					<button ng-click="$ctrl.beginCreatingCar()">Add New Car</button>
         </article>
       </div>
-
     </main>
+    <script src="app.js"></script>
   </body>
 </html>

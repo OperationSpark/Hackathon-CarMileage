@@ -49,10 +49,11 @@ main {
 section{
   padding-left: 5px;
 }
-h1{
+nav h1{
   font-weight: 100;
   display: flex;
   flex-direction: column;
+  font-size: 2.5em;
 }
 ul {
   list-style: none;
@@ -146,7 +147,7 @@ label i {
 
 aside:before {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -164,7 +165,7 @@ aside .content {
 }
 
 aside {
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -172,4 +173,7 @@ aside {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
 }

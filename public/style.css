@@ -66,7 +66,8 @@ h1 {
 }
 button {
   background: #c43b3a;
-  color:black;
+  color: white;
+  font-weight: bold;
 }
 a {
   color:black;

@@ -92,17 +92,6 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
     this.trackerUpdating = null;
   });
   
-  // var currentUser;
-  //functions to write user data
-  // function writeUserData(userId, name, email, directionRequest) {
-  //   console.log('Writing Data To Firebase')
-  //   firebase.database().ref('users/' + userId).set({
-  //     username: name,
-  //     email: email,
-  //     directionRequest: directionRequest
-  //   });
-  // }
-
   this.creatingCar = null
   this.beginCreatingCar = () => this.creatingCar = {}
   this.finishCreatingCar = thenSave(() => {
@@ -122,22 +111,51 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
     this.addingTrackingItem = null
   })
 
-  // Check If User Is Signed In
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      currentUser = user;
-      $scope.isLoggedIn = true;
-    } else {
-      currentUser = null;
-      $scope.isLoggedIn = false;
-    }
-  }, function(error) {
-    console.log(error);
+  this.isLoginUiLoading = true;
+  
+  firebase.auth().onAuthStateChanged((user) => $scope.$apply(() =>
+      this.isLoggedIn = !!user
+  ),(error) => {
+    $scope.$apply(() => {
+      this.isLoggedIn = false;
+      console.error(error);
+    })
   });
   
   carDb.on('value', (db) => $scope.$apply(() => {
     this.cars = db.val() && db.val().cars || []
   }));
+  
+  const uiConfig = {
+    callbacks: {
+      uiShown: () => this.isLoginUiLoading = false
+    },
+    credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM,
+    // Query parameter name for mode.
+    queryParameterForWidgetMode: 'mode',
+    // Query parameter name for sign in success url.
+    queryParameterForSignInSuccessUrl: 'signInSuccessUrl',
+    // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+    signInFlow: 'popup',
+    signInSuccessUrl: '/',
+    signInOptions: [
+      // Leave the lines as is for the providers you want to offer your users.
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      //  dont need these
+      // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+      {
+        // dont need this, this is for local auth
+        // provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        // Whether the display name should be displayed in the Sign Up page.
+        requireDisplayName: true
+      }
+    ],
+    // Terms of service url.
+    tosUrl: '<your-tos-url>'
+  };
 
-
+  const ui = new firebaseui.auth.AuthUI(firebase.auth());
+  ui.start('#firebaseui-auth-container', uiConfig); // The start method will wait until the DOM is loaded.
+  
 }]);

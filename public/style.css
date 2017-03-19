@@ -61,7 +61,7 @@ ul {
   list-style: none;
   padding:0px;
 }
-h1.ng-binding {
+h1 {
   font-weight: 100;
 }
 button {
@@ -71,7 +71,7 @@ button {
 a {
   color:black;
 }
-a.btn.btn-default{
+a.btn.btn-default {
   background: #c43b3a;
   color: 000000;
 }
@@ -87,7 +87,7 @@ article {
   background: white;
 }
 
-.car-cards > li {
+ul.car-cards > li {
   background: #d3d3d3;
   border-radius: 10px;
 }
@@ -149,7 +149,7 @@ label i {
 
 aside:before {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -167,7 +167,7 @@ aside .content {
 }
 
 aside {
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -175,4 +175,7 @@ aside {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
 }

@@ -120,6 +120,41 @@
               <button>Save</button><br />
             </form>
           </aside>
+          
+          <aside ng-if="$ctrl.addingTrackingItem">
+            <form ng-submit="$ctrl.finishAddingTrackingItem()" name="addingTrackingItemForm">
+							<label>
+								<input ng-model="$ctrl.addingTrackingItem.name" required placeholder="eg Oil Change, Windshield Fluid">
+								<span class="label">Name</span>
+							</label>
+							<div>
+							  <h3>Last Serviced</h3>
+  							<label>
+  								<input ng-model="$ctrl.previous.mileage" type="number">
+  								<span class="label">Mileage</span>
+  							</label>
+  							<label>
+  								<input ng-model="$ctrl.previous.date" type="date">
+  								<span class="label">Date</span>
+  							</label>
+							</div>
+							<div>
+							  <h3>Next Scheduled Service</h3>
+  							<label>
+  								<input ng-model="$ctrl.next.mileage" type="number">
+  								<span class="label">Mileage</span>
+  							</label>
+  							<label>
+  								<input ng-model="$ctrl.next.date" type="date">
+  								<span class="label">Date</span>
+  							</label>
+							</div>
+							<div class="actions">
+							  <button class="negative" type="button" ng-click="$ctrl.addingTrackingItem = null">Cancel</button>
+							  <button ng-disabled="addingTrackingItemForm.$invalid">Add</button>
+							</div>
+            </form>
+          </aside>
 
 					<aside ng-if="$ctrl.creatingCar">
 							<header>
@@ -176,7 +211,10 @@
                   <!--  {{$ctrl.calcPercent(car, item) | number: 1}}-->
                   <!--</dd>-->
                 </dl>
-                <a ng-click="$ctrl.beginCheckIn(car)">Check In</a>
+                <div class="actions">
+                  <a ng-click="$ctrl.beginCheckIn(car)">Check In</a>
+                  <a ng-click="$ctrl.beginAddingTrackingItem(car)">Add Tracking Item</a>
+                </div>
               </section>
             </li>
           </ul>

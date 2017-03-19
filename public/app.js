@@ -1,4 +1,4 @@
-/* global moment angular */
+/* global moment angular firebase */
 
 const mainModule = angular.module('mainModule', []);
 
@@ -7,6 +7,7 @@ const lpad = (str, padWith, minLength) =>
   str.length >= minLength ? str : lpad(padWith+str, padWith, minLength);
 const rand2Hex = () => lpad(Math.floor(Math.random()*256).toString(16), '0', 2);
 const randomColor = () => `#${rand2Hex()}${rand2Hex()}${rand2Hex()}`;
+const pick = (obj, ...props) => props.reduce((o, p) => Object.assign(o, {[p]: obj[p]}), {});
 
 mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $document) {
   
@@ -23,7 +24,7 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
       name: "My Chevy",
       odometer: 4050,
       tracking: [
-        { name: "Oil Change", color: randomColor(), next: { mileage: 1000, date: '2017-05-01'}, previous: { mileage: 800, date: '2017-01-01'} },
+        { name: "Oil Change", color: randomColor(), next: { mileage: 5000, date: '2017-05-01'}, previous: { mileage: 2000, date: '2017-01-01'} },
       ],
     },
   ];
@@ -94,6 +95,13 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
     firebase.database().ref('Cars/').push({
       cars: this.cars, 
     });
+  }
+  
+  this.addingTrackingItem = null
+  this.beginAddingTrackingItem = (car) => this.addingTrackingItem = { previous: {}, next: {}, car}
+  this.finishAddingTrackingItem = () => {
+    this.addingTrackingItem.car.tracking.push(pick(this.addingTrackingItem, 'name', 'previous', 'next'))
+    this.addingTrackingItem = null
   }
 
   // Check If User Is Signed In

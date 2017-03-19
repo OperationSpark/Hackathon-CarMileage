@@ -1,6 +1,6 @@
 /* global moment angular */
 
-const mainModule = angular.module('mainModule', 'angularModalService', ['angularModalService']);
+const mainModule = angular.module('mainModule', []);
 
 
 const lpad = (str, padWith, minLength) =>
@@ -83,32 +83,18 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
   //   });
   // }
 
-  this.finishSavingCar = (carName,carMake,odometer) => {
-    console.log('we inside of finish saving car');
+  this.creatingCar = null
+  this.beginCreatingCar = () => this.creatingCar = {}
+  this.finishCreatingCar = () => {
+    this.cars.push({
+      name: this.creatingCar.name,
+      odometer: this.creatingCar.odometer,
+      tracking: []
+    })
     firebase.database().ref('Cars/').push({
-      carName:carName,
-      carMake:carMake,
-      odometer:odometer,
-      tracking:{
-        name:1,
-        color:2,
-        next:3,
-        previous:4
-      }
+      cars: this.cars, 
     });
   }
-  
-    this.testSaveData = (carName) => {
-    console.log('we inside of finish saving car');
-    firebase.database().ref('Cars/' + carName).set({
-      carName:carName
-    });
-  }
-  
-  this.print = (carName) => {
-    console.log("it Worked!" + carName);
-  }
-  
 
   // Check If User Is Signed In
   firebase.auth().onAuthStateChanged(function(user) {
@@ -125,25 +111,4 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
     console.log(error);
   });
 
-}]);
-
-mainModule.controller('NewCarController', ['$scope', 'ModalService', function($scope, ModalService) {
-
-  $scope.close = function(result) {
- 	  close(result, 500); // close, but give 500ms for bootstrap to animate
-  };
-
-  $scope.showYesNo = function() {
-
-    ModalService.showModal({
-      templateUrl: "modals/newcar-template.html",
-      controller: "NewCarController"
-    }).then(function(modal) {
-      modal.element.modal();
-      modal.close.then(function(result) {
-        $scope.yesNoResult = result ? "You said Yes" : "You said No";
-      });
-    });
-
-  };
 }]);

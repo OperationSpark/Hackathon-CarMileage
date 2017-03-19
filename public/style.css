@@ -36,6 +36,7 @@ small {
 
 main {
   background: white !important;
+  font-weight:100;
 }
 button {
   background: #c43b3a;
@@ -48,9 +49,10 @@ a.btn.btn-default{
   background: #c43b3a;
   color: 000000;
 }
-span.label {
+h2 {
   color:black;
   font-size:1.5em;
+  font-weight:100;
 }
 article {
   background: white;

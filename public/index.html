@@ -6,19 +6,11 @@
     <title>Car.Go, Your Total Car Maintinence Tracking App</title>
     <link rel="shortcut icon" href="logo.png" />
     <script>document.write('<base href="' + document.location + '" />');</script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-  <script
-  src="https://code.jquery.com/jquery-3.2.0.min.js"
-  integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
-  crossorigin="anonymous"></script>
-    <!-- Latest compiled and minified JavaScript -->
+		<script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
-    <script src="https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js"></script>
 
       <script>
         // Initialize Firebase
@@ -77,14 +69,12 @@
       // The start method will wait until the DOM is loaded.
       ui.start('#firebaseui-auth-container', uiConfig);
     </script>
+
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
- 
+		<link rel="stylesheet" href="style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-    
     <script src="app.js"></script>
-     
-           <link rel="stylesheet" href="style.css" />
   </head>
   <body>
      <nav>
@@ -95,37 +85,20 @@
         <div id="firebaseui-auth-container"></div>
         <div id="loader">Loading...</div>
       </div>
-  <h2 ng-show="isLoggedIn">yesss</h2>
-    
 
       <div class="panel panel-default">
         <article id="dashboard">
-          
+
           <aside ng-if="$ctrl.carCheckingIn">
             <form ng-submit="$ctrl.finishCheckIn()">
               <label>
                 <span class="label">Current Milage:</span>
-                <input ng-model="$ctrl.carCheckingIn.newOdometer" required type="number"/>
+                <input ng-model="$ctrl.carCheckingIn.newOdometer" required type="number" />
               </label>
               <button>Save</button>
             </form>
-         
-            <p>Car information.</p>
-            <form >1:Enter car name 
-            <br>
-            <input type="text" ng-model="carName"name="entercarinformation"><br>
-            2: Enter car make & model 
-            <form>
-            <br>
-            <input ng-model="carMake" type="entercarmake&model">
-            </form>
-            <form>3:current Mileage
-            <br>
-            <input ng-model="odometer"><br><br>
-            </form>
-            <button ng-click = "$ctrl.finishSavingCar(carName, carMake, odometer)">Save Car</button>
           </aside>
-          
+
           <aside ng-if="$ctrl.trackerUpdating">
             <form ng-submit="$ctrl.finishTrackerUpdate()">
               <label>
@@ -147,7 +120,37 @@
               <button>Save</button><br />
             </form>
           </aside>
-          
+
+					<aside ng-if="$ctrl.creatingCar">
+							<header>
+									<h2>Add New Car</h2>
+							</header>
+							<form ng-submit="$ctrl.finishCreatingCar()" name="creatingCarForm">
+									<label>
+											<input ng-model="$ctrl.creatingCar.name" required>
+											<span class="label">
+													<i>1</i>
+													Car name
+											</span>
+									</label>
+									<label>
+											<input ng-model="$ctrl.creatingCar.makeModel">
+											<span class="label">
+													<i>2</i>
+													Make and model
+											</span>
+									</label>
+									<label>
+											<input ng-model="$ctrl.creatingCar.odometer" type="number" required >
+											<span class="label">
+													<i>3</i>
+													Current Mileage
+											</span>
+									</label>
+									<button ng-click="$ctrl.finishCreatingCar()" ng-disabled="creatingCarForm.$invalid">Save</button>
+							</form>
+					</aside>
+
           <ul class="car-cards">
             <li ng-repeat="car in $ctrl.cars">
               <section>
@@ -157,8 +160,8 @@
                 <dl ng-repeat="item in car.tracking" ng-click="$ctrl.beginTrackerUpdate(item, car)">
                   <dt>{{item.name}}</dt>
                   <div class="progress" style="width: 90%;">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="60" 
-                      aria-valuemin="0" aria-valuemax="100" style="width: {{$ctrl.calcPercent(car, item)}}%;" 
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60"
+                      aria-valuemin="0" aria-valuemax="100" style="width: {{$ctrl.calcPercent(car, item)}}%;"
                       name="{{$ctrl.calcPercent(car, item)}}%">
                       {{$ctrl.calcPercent(car, item)}}%
                     </div>
@@ -177,12 +180,11 @@
               </section>
             </li>
           </ul>
+
+					<button ng-click="$ctrl.beginCreatingCar()">Add New Car</button>
         </article>
       </div>
-      
-      <div class="container" ng-controller="NewCarController">
-        <a class="btn btn-default" href ng-click="showYesNo()">Add Car</a>
-      </div>
+
     </main>
   </body>
 </html>

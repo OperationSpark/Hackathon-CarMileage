@@ -48,9 +48,10 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
   const thenSave = fn => (...args) =>{
     fn(...args)
     setTimeout(() => {
-      carDb.set(strip$Keys({
+      const newVal = strip$Keys({
         cars: this.cars, 
-      }));
+      })
+      carDb.set(newVal);
     })
   }
 
@@ -102,7 +103,7 @@ mainModule.controller('MainCtrl', ['$scope', '$document', function($scope, $docu
   })
   
   this.addingTrackingItem = null
-  this.beginAddingTrackingItem = (car) => this.addingTrackingItem = { previous: {}, next: {}, car}
+  this.beginAddingTrackingItem = (car) => this.addingTrackingItem = { previous: {mileage: null, date: null}, next: {mileage: null, date: null}, car}
   this.finishAddingTrackingItem = thenSave(() => {
     const {car} = this.addingTrackingItem
     car.tracking || (car.tracking = [])
